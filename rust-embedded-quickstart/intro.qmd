@@ -1,0 +1,3 @@
+# Introduction {.unnumbered}
+
+Bắt đầu với cortex-m-quickstart vì tôi muốn biết thêm rằng có thể chạy giả lập phần cứng với qemu nếu không có phần cứng tôi cần, và tôi muốn học thêm điều đó.

@@ -1,0 +1,3 @@
+# Summary {.unnumbered}
+
+Do thấy có nhiều thuật ngữ khó hiểu khi mới bắt đầu học Rust Embedded, tôi viết sách này giải thích những thuật ngữ đó trong quá trình học.

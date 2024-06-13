@@ -1,0 +1,65 @@
+# .cargo/config.toml
+
+File .cargo/config.toml là file cấu hình cho cargo, công cụ quản lý dự án Rust. File này chứa các tùy chọn cấu hình cho dự án, bao gồm target (mục tiêu) biên dịch, các cờ biên dịch (flags), v.v.
+
+## [target.thumbv7m-none-eabi]:
+
+Phần này xác định các tùy chọn cấu hình cho target thumbv7m-none-eabi, tương ứng với vi điều khiển ARM Cortex-M3.
+runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel": Câu lệnh này xác định cách chạy chương trình sau khi biên dịch. Nó sử dụng QEMU, một trình giả lập, để chạy chương trình trên vi điều khiển Cortex-M3. Các tham số được sử dụng để cấu hình QEMU, bao gồm loại CPU, loại máy, chế độ hiển thị, v.v.
+
+### QEMU
+QEMU (Quick Emulator) là một trình giả lập phần cứng mã nguồn mở, cho phép bạn chạy các hệ điều hành và ứng dụng được thiết kế cho một kiến trúc phần cứng khác trên một kiến trúc phần cứng khác. Nói cách khác, QEMU cho phép bạn mô phỏng một máy tính khác trên máy tính hiện tại của bạn.
+
+Cách hoạt động của QEMU:
+
+QEMU hoạt động bằng cách tạo ra một môi trường ảo hóa, mô phỏng các thành phần phần cứng của máy tính mục tiêu, bao gồm:
+
+CPU: QEMU mô phỏng CPU của máy tính mục tiêu, bao gồm các bộ lệnh, bộ nhớ cache, v.v.
+Bộ nhớ: QEMU tạo ra một vùng nhớ ảo, mô phỏng bộ nhớ của máy tính mục tiêu.
+Thiết bị ngoại vi: QEMU mô phỏng các thiết bị ngoại vi như ổ cứng, card mạng, card đồ họa, v.v.
+Sử dụng QEMU:
+
+QEMU có thể được sử dụng cho nhiều mục đích, bao gồm:
+
+Kiểm tra phần mềm: QEMU cho phép bạn kiểm tra phần mềm trên nhiều kiến trúc phần cứng khác nhau mà không cần phải có phần cứng thực tế.
+Phát triển phần mềm: QEMU cho phép bạn phát triển phần mềm cho các hệ điều hành và kiến trúc phần cứng khác nhau mà không cần phải có phần cứng thực tế.
+Giáo dục: QEMU là một công cụ hữu ích cho việc học hỏi về kiến trúc phần cứng và hệ điều hành.
+Bảo mật: QEMU có thể được sử dụng để tạo ra các môi trường ảo hóa an toàn để chạy các ứng dụng nhạy cảm.
+Ví dụ:
+
+Trong dự án cortex-m-quickstart, QEMU được sử dụng để chạy chương trình được biên dịch cho vi điều khiển ARM Cortex-M3. Câu lệnh qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel trong file .cargo/config.toml xác định cách chạy chương trình bằng QEMU.
+
+qemu-system-arm: Chạy QEMU cho kiến trúc ARM.
+-cpu cortex-m3: Sử dụng CPU Cortex-M3.
+-machine lm3s6965evb: Sử dụng bo mạch LM3S6965EVB.
+-nographic: Không hiển thị giao diện đồ họa.
+-semihosting-config enable=on,target=native: Cấu hình chế độ semihosting để cho phép chương trình tương tác với máy chủ QEMU.
+-kernel: Chạy chương trình được biên dịch.
+Kết luận:
+
+QEMU là một công cụ mạnh mẽ và linh hoạt cho việc mô phỏng phần cứng và chạy các hệ điều hành và ứng dụng trên các kiến trúc phần cứng khác nhau. Nó là một công cụ hữu ích cho nhiều mục đích, bao gồm kiểm tra phần mềm, phát triển phần mềm, giáo dục và bảo mật.
+
+## [target.'cfg(all(target_arch = "arm", target_os = "none"))']:
+
+Phần này xác định các tùy chọn cấu hình cho target ARM Cortex-M, được xác định bởi target_arch = "arm" và target_os = "none".
+runner = "arm-none-eabi-gdb -q -x openocd.gdb": Câu lệnh này xác định cách chạy chương trình sau khi biên dịch. Nó sử dụng arm-none-eabi-gdb, một trình gỡ lỗi, để chạy chương trình trong chế độ gỡ lỗi. Các tham số được sử dụng để cấu hình GDB, bao gồm chế độ im lặng (-q) và file cấu hình (-x openocd.gdb).
+runner = "gdb-multiarch -q -x openocd.gdb": Câu lệnh này tương tự như câu lệnh trên, nhưng sử dụng gdb-multiarch thay vì arm-none-eabi-gdb.
+runner = "gdb -q -x openocd.gdb": Câu lệnh này tương tự như câu lệnh trên, nhưng sử dụng gdb thay vì arm-none-eabi-gdb hoặc gdb-multiarch.
+
+## rustflags = [...]:
+
+Phần này xác định các cờ biên dịch (flags) cho Rust.
+"-C", "linker=arm-none-eabi-ld": Câu lệnh này xác định trình liên kết (linker) được sử dụng để liên kết các file đối tượng (object files) thành file thực thi. Nó sử dụng trình liên kết LLD, được cung cấp bởi Rust toolchain.
+"-C", "linker=arm-none-eabi-gcc": Câu lệnh này xác định trình liên kết được sử dụng để liên kết các file đối tượng. Nó sử dụng trình liên kết GCC, được cung cấp bởi toolchain C.
+"-C", "link-arg=-Wl,-Tlink.x": Câu lệnh này truyền tham số -Tlink.x cho trình liên kết. Tham số này được sử dụng để xác định file script liên kết, chứa thông tin về cách liên kết các file đối tượng.
+"-C", "link-arg=-nostartfiles": Câu lệnh này truyền tham số -nostartfiles cho trình liên kết. Tham số này được sử dụng để ngăn trình liên kết thêm các file khởi động (startup files) vào file thực thi.
+
+## [build]:
+
+Phần này xác định các tùy chọn cấu hình cho quá trình xây dựng (build).
+target = "thumbv7m-none-eabi": Câu lệnh này xác định target (mục tiêu) biên dịch mặc định cho dự án. Nó sử dụng target thumbv7m-none-eabi, tương ứng với vi điều khiển ARM Cortex-M3.
+Lưu ý:
+
+File .cargo/config.toml là tùy chọn và không phải lúc nào cũng cần thiết.
+Bạn có thể thêm hoặc xóa các phần và tùy chọn cấu hình theo nhu cầu của dự án.
+Việc sử dụng file .cargo/config.toml giúp bạn cấu hình dự án một cách linh hoạt và dễ dàng hơn.

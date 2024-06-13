@@ -1,0 +1,24 @@
+project:
+  type: book
+
+book:
+  title: "My Rust Embedded Quickstart"
+  author: "Kevil Nguyen"
+  date: "6/13/2024"
+  chapters:
+    - intro.qmd
+    - index.qmd
+    - config-toml.qmd
+    - references.qmd
+    - summary.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+

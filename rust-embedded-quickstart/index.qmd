@@ -1,0 +1,87 @@
+# Preface
+
+## Cấu trúc và các đường dẫn tiêu chuẩn trong một dự án Rust
+Dự án Rust thường tuân theo một cấu trúc tiêu chuẩn để tổ chức mã nguồn và các tệp liên quan. Dưới đây là một số đường dẫn tiêu chuẩn và cấu trúc phổ biến:
+
+### Thư mục gốc:
+
+Cargo.toml: File cấu hình chính của dự án, chứa thông tin về tên dự án, phiên bản, phụ thuộc, tác giả, v.v.
+
+src/: Thư mục chứa mã nguồn chính của dự án.
+main.rs: Điểm khởi đầu của chương trình, chứa hàm main() chính.
+
+lib.rs: File chứa mã nguồn của thư viện (library) của dự án.
+
+examples/: Thư mục chứa các ví dụ mã nguồn.
+
+tests/: Thư mục chứa các bài kiểm tra đơn vị (unit tests) cho dự án.
+
+benches/: Thư mục chứa các bài kiểm tra hiệu năng (benchmark tests) cho dự án.
+
+target/: Thư mục chứa các file được tạo ra trong quá trình biên dịch, bao gồm các file thực thi, thư viện, v.v.
+
+.gitignore: File chứa danh sách các file và thư mục không nên được theo dõi bởi Git.
+
+### Thư mục src/:
+
+main.rs: File chứa hàm main() chính, điểm khởi đầu của chương trình.
+lib.rs: File chứa mã nguồn của thư viện (library) của dự án. Thư viện có thể được sử dụng bởi các dự án khác.
+Các file khác: Có thể có các file khác trong thư mục src/ để tổ chức mã nguồn theo các module hoặc chức năng cụ thể.
+
+### Thư mục examples/:
+
+Các file ví dụ: Thư mục này chứa các file ví dụ mã nguồn để minh họa cách sử dụng thư viện hoặc chức năng của dự án.
+
+### Thư mục tests/:
+
+Các file kiểm tra: Thư mục này chứa các file kiểm tra đơn vị (unit tests) để kiểm tra chức năng của mã nguồn.
+
+### Thư mục benches/:
+
+Các file kiểm tra hiệu năng: Thư mục này chứa các file kiểm tra hiệu năng (benchmark tests) để đo lường hiệu suất của mã nguồn.
+
+### Thư mục target/:
+
+Các file được tạo ra: Thư mục này chứa các file được tạo ra trong quá trình biên dịch, bao gồm các file thực thi, thư viện, v.v.
+
+### File .gitignore:
+
+Danh sách các file không theo dõi: File này chứa danh sách các file và thư mục không nên được theo dõi bởi Git.
+Lưu ý:
+
+Cấu trúc này có thể thay đổi tùy thuộc vào yêu cầu của dự án cụ thể.
+Bạn có thể thêm hoặc xóa các thư mục và file theo nhu cầu.
+Việc tuân theo cấu trúc tiêu chuẩn giúp cho dự án dễ dàng quản lý và bảo trì hơn.
+
+## Giải thích các file trong dự án cortex-m-quickstart 
+
+Dự án cortex-m-quickstart cung cấp một template cơ bản để xây dựng ứng dụng cho vi điều khiển ARM Cortex-M.
+
+### .cargo/config.toml:
+
+File cấu hình cho cargo, công cụ quản lý dự án Rust. File này xác định target (mục tiêu) biên dịch mặc định cho dự án. Bạn có thể chọn một trong các target được liệt kê trong file này, tùy thuộc vào loại vi điều khiển Cortex-M mà bạn đang sử dụng.
+
+### memory.x:
+
+File này chứa thông tin về vùng nhớ (memory region) của vi điều khiển. Nó xác định vị trí bắt đầu (ORIGIN) và kích thước (LENGTH) của các vùng nhớ như Flash và RAM. Thông tin này được sử dụng bởi linker để phân bổ bộ nhớ cho chương trình.
+
+### src/main.rs:
+
+File này chứa mã nguồn chính của ứng dụng. Nó là điểm khởi đầu của chương trình và chứa các hàm chính để khởi tạo và chạy ứng dụng.
+
+### Cargo.toml:
+
+File này chứa thông tin về dự án, bao gồm tên dự án, phiên bản, phụ thuộc, tác giả, v.v. Nó được sử dụng bởi cargo để quản lý dự án.
+
+
+### openocd.cfg:
+
+File này chứa cấu hình cho OpenOCD, một công cụ để lập trình và gỡ lỗi vi điều khiển. Nó xác định các thông số kết nối với vi điều khiển, bao gồm loại vi điều khiển, giao thức kết nối (ví dụ: JTAG, SWD), tốc độ truyền dữ liệu, v.v. File này cũng có thể chứa các lệnh để khởi động lại vi điều khiển, tải chương trình vào bộ nhớ Flash, v.v.
+
+### openocd.gdb:
+
+File này chứa cấu hình cho GDB, một công cụ gỡ lỗi. Nó xác định các thông số kết nối với OpenOCD, bao gồm địa chỉ IP và cổng của OpenOCD server. File này cũng có thể chứa các lệnh để tải chương trình vào bộ nhớ, đặt điểm dừng (breakpoint), xem giá trị biến, v.v.
+
+### build.rs:
+
+File build.rs là một file đặc biệt trong Rust được sử dụng để thực hiện các tác vụ xây dựng trước khi biên dịch chính thức. Nó được chạy bởi cargo trước khi biên dịch mã nguồn chính của dự án.
