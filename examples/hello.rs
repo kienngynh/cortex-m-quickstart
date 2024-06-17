@@ -4,7 +4,7 @@
 #![no_std]
 
 use panic_halt as _;
-
+use stm32f3::stm32f303;
 use cortex_m_rt::entry;
 use cortex_m_semihosting::{debug, hprintln};
 
